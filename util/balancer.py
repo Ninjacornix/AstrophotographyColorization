@@ -19,11 +19,47 @@ def color_balance(r, g, b):
 
     return r, g, b
 
-def infrared_balance(a, b):
-    a_ratio = 255 / np.percentile(a, 99)
-    b_ratio = 255 / np.percentile(b, 99)
+def color_curve(r, g, b):
 
-    a = np.clip(a * a_ratio, 0, 255).astype(np.uint8)
-    b = np.clip(b * b_ratio, 0, 255).astype(np.uint8)
+    ogshape = r.shape
+    r = r.flatten()
+    g = g.flatten()
+    b = b.flatten()
 
-    return a, b
+    r = r.reshape(-1, 1)
+    g = g.reshape(-1, 1)
+    b = b.reshape(-1, 1)
+
+    red_model = LinearRegression()
+    red_model.fit(r, g)
+    red = red_model.predict(r)
+    red_model.fit(r, b)
+    blue = red_model.predict(r)
+
+    green_model = LinearRegression()
+    green_model.fit(g, r)
+    green = green_model.predict(g)
+    green_model.fit(g, b)
+    blue = green_model.predict(g)
+
+    blue_model = LinearRegression()
+    blue_model.fit(b, r)
+    red = blue_model.predict(b)
+    blue_model.fit(b, g)
+    green = blue_model.predict(b)
+
+    # reshape to original shape
+    r = r.reshape(ogshape)
+    g = g.reshape(ogshape)
+    b = b.reshape(ogshape)
+
+    lut_in = np.arange(256, dtype=np.uint8)
+    lut_out = np.arange(256, dtype=np.uint8)
+
+    lut_8u = np.interp(np.arange(256), lut_in, lut_out).astype(np.uint8)
+
+    r = cv2.LUT(r, lut_8u)
+    g = cv2.LUT(g, lut_8u)
+    b = cv2.LUT(b, lut_8u)
+
+    return r, g, b

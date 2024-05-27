@@ -1,9 +1,10 @@
 import argparse
 from util.converter import convert_fits_to_tiff
-from util.balancer import color_balance, denoise_image, infrared_balance
+from util.balancer import color_balance, denoise_image, color_curve
 import numpy as np
 from astropy.io import fits
 import matplotlib.pyplot as plt
+import imageio
 
 def main():
     r=fits.open("/Users/ninjacornix/DOAS/images/source/hlsp_heritage_hst_wfc3-uvis_m16_f673n_v1_drz.fits")[0].data
@@ -23,25 +24,34 @@ def main():
     plt.show() """
     r, g, b = color_balance(r, g, b)
     rgb = np.dstack((r, g, b))
-    plt.imshow(rgb, origin='lower')
-    plt.show()
+    """ plt.imshow(rgb, origin='lower')
+    plt.title('UVIS noise')
+    plt.show() """
     rgb = denoise_image(rgb)
     plt.imshow(rgb, origin='lower')
+    plt.title('M16 UVIS denoised')
     plt.show()
 
 def infrared():
-    a = fits.open("/Users/ninjacornix/DOAS/images/source/hlsp_heritage_hst_wfc3-ir_m16_f110w_v1_drz.fits")[0].data
-    b = fits.open("/Users/ninjacornix/DOAS/images/source/hlsp_heritage_hst_wfc3-ir_m16_f160w_v1_drz.fits")[0].data
+    blue = fits.open("/Users/ninjacornix/DOAS/images/source/hlsp_heritage_hst_wfc3-ir_m16_f110w_v1_drz.fits")[0].data
+    yellow = fits.open("/Users/ninjacornix/DOAS/images/source/hlsp_heritage_hst_wfc3-ir_m16_f160w_v1_drz.fits")[0].data
 
-    a = np.nan_to_num(a)
-    b = np.nan_to_num(b)
+    blue = np.nan_to_num(blue)
+    yellow = np.nan_to_num(yellow)
 
-    a, b = infrared_balance(a, b)
+    red = yellow * 0.5
+    green = yellow * 0.5
+    
+    red, green, blue = color_balance(red, green, blue)
+    red, green, blue = color_curve(red, green, blue)
 
-    combined = np.dstack((a, np.zeros_like(a), b))
-    plt.imshow(combined, origin='lower')
+    infrared = np.dstack((red, green, blue))
+    infrared = denoise_image(infrared)
+
+    plt.imshow(infrared, cmap='gray', origin='lower')
+    plt.title('IR')
     plt.show()
 
 
 if __name__ == "__main__":
-    infrared()
+    main()
