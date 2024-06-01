@@ -1,0 +1,103 @@
+\documentclass[conference]{IEEEtran}
+\IEEEoverridecommandlockouts
+% The preceding line is only needed to identify funding in the first footnote. If that is unneeded, please comment it out.
+\usepackage{cite}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{algorithmic}
+\usepackage{graphicx}
+\usepackage{textcomp}
+\usepackage{xcolor}
+\usepackage[T1]{fontenc}
+\def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
+    T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
+\begin{document}
+
+\title{Metode za automatsku
+ravnotežu boja (auto white balance)
+}
+
+\author{\IEEEauthorblockN{1\textsuperscript{st} Lana Šprajc}
+\IEEEauthorblockA{\textit{Fakultet eletrotehnike i računarstva} \\
+\textit{lana.sprajc@fer.hr} }
+\and
+\IEEEauthorblockN{2\textsuperscript{nd} Given Name Surname}
+\IEEEauthorblockA{\textit{dept. name of organization (of Aff.)} \\
+\textit{name of organization (of Aff.)}\\
+City, Country \\
+email address or ORCID}
+\and
+\IEEEauthorblockN{3\textsuperscript{rd} Given Name Surname}
+\IEEEauthorblockA{\textit{dept. name of organization (of Aff.)} \\
+\textit{name of organization (of Aff.)}\\
+City, Country \\
+email address or ORCID}
+\and
+\IEEEauthorblockN{4\textsuperscript{th} Given Name Surname}
+\IEEEauthorblockA{\textit{dept. name of organization (of Aff.)} \\
+\textit{name of organization (of Aff.)}\\
+City, Country \\
+email address or ORCID}
+\and
+\IEEEauthorblockN{5\textsuperscript{th} Given Name Surname}
+\IEEEauthorblockA{\textit{dept. name of organization (of Aff.)} \\
+\textit{name of organization (of Aff.)}\\
+City, Country \\
+email address or ORCID}
+}
+
+\maketitle
+
+\begin{abstract}
+This document is a model and instructions for \LaTeX.
+This and the IEEEtran.cls file define the components of your paper [title, text, heads, etc.]. *CRITICAL: Do Not Use Symbols, Special Characters, Footnotes, 
+or Math in Paper Title or Abstract.
+\end{abstract}
+
+\begin{IEEEkeywords}
+Hubble, astrofotografija, auto white, ravnoteža boja
+\end{IEEEkeywords}
+
+\section{Uvod}
+Svemirski teleskop Hubble je program suradnje Europske svemirske agencije i
+Nacionalne uprave za aeronautiku i svemir. Pojedinačne slike s Hubbleovih kamera
+ne sadržavaju nikakvu informaciju o boji kao takvoj, osim boje filtra, koji
+odabire niz valnih duljina iz cijelog spektra svjetlosti. Crno-bijela (jednobojna)
+slika najrealističnije predstavlja raspon svjetline u takvoj jednoj slici. Usprkos
+tomu, slike u boji mogu se rekonstruirati kombiniranjem nekoliko slika napravljenih
+kroz različite filtre i dodjeljivanjem različite boje svakoj slici. Želimo testirati
+metode balansiranja boja na astrofotografijama napravljenima koristeći
+Svemirski teleskop Hubble.
+
+\section{Pregled literature}
+Vrijednost piksela ovisi o boji izvora, refleksiji površine i osjetljivosti kamere.
+Budući da ovi parametri nisu poznati, potrebne su metode procjene parametara \cite{article}.
+
+Jedna od skupina metoda procjene boje izvora su statičke metode. U njoj se primjenjuju
+fiksni parametri nad ulaznom slikom. Najkorištenija statička metoda je pretpostavka sivog
+svjeta (engl. \textit{Grey-World Assumption}). Početna pretpostavka ove metode jest da je
+prosječna refleksija površine siva te se zaključuje da ukupna prosječna boja u slici proizlazi
+iz izvora. Tako se pojedina RGB komponenta izvora računa kao integral te komponent kroz
+cijelu sliku pomnožen s nekim skalarom (kako bi se izvor normirao) \cite{BUCHSBAUM19801}.
+
+Druga skupina često korištenih metoda procjene boje su metode bazirane na gamutu.
+Osnovna pretpostavka ove metode je da za dani izvor svjetlosti možemo primjetiti
+samo ograničeni skup boja. U fazi treniranja ove metode određuje se koji skup boja
+možemo očitati za određene izvore. Nakon treniranja, za ulaznu sliku odredi se skup
+boja koje ona sadržava te se definira koji su mogući izvori svjetlosti za taj skup boja.
+Nakon toga se odabire neki od mogućih izvora svjetlosti i primjenjuje se tranformacija nad
+slikom kako bi se dobila balansirana slika \cite{Forsyth1990}.
+
+
+\section{Opis rješenja}
+
+\section{Opis rezultata}
+
+\section{Diskusija}
+
+\section{Zaključak}
+
+\bibliographystyle{IEEEtran}
+\bibliography{IEEEfull}
+\vspace{12pt}
+
+\end{document}
