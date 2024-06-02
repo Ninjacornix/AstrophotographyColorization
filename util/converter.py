@@ -14,9 +14,6 @@ def convert_fits_to_tiff(fits_dir, tiff_dir):
         tiff_file = tiff_dir + '/' + fits_file.split('/')[-1].replace('.fits', '.tiff')
         imageio.imwrite(tiff_file, data)
         hdul.close()
-
-
-
     
 def convert_single_fits_to_tiff(fits_file, tiff_file):
     hdul = fits.open(fits_file)
