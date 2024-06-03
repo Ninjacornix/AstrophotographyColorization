@@ -3,7 +3,6 @@ lib/
 share/
 include/
 .DS_Store
-pillar.png
 pyvenv.cfg
 util/__pycache__/
 infrared.tiff
